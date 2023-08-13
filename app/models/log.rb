@@ -1,21 +1,28 @@
-class Log
-  def initialize(log)
-    @log = JSON.parse(log)
+class Log < ApplicationRecord
+  belongs_to :habit
+
+  before_create do |hc|
+    hc.log = {}.to_json
   end
 
-  def add(date)
-    if @log[date.year.to_s]
-      if @log[date.year.to_s][date.month.to_s]
-        @log[date.year.to_s][date.month.to_s] << date.day.to_s
+  def add(date = Time.now)
+    self.log = adder(date).to_json
+    self.save!
+  end
+
+  private def adder(date)
+    if self[date.year.to_s]
+      if self[date.year.to_s][date.month.to_s]
+        if self[date.year.to_s][date.month.to_s][date.day.to_s]
+          raise StandardError, 'day already logged'
+        else
+          self[date.year.to_s][date.month.to_s][date.day.to_s] => true
+        end
       else
-        @log[date.year.to_s] = { date.month.to_s => [date.day.to_s] }
+        self[date.year.to_s] = { date.month.to_s => { date.day.to_s => true }}
       end
     else
-      @log[date.year.to_s] = { date.month.to_s => [date.day.to_s] }
+      self[date.year.to_s] = { date.month.to_s => { date.day.to_s => true }}
     end
-  end
-
-  def to_json
-    @log.to_json
   end
 end

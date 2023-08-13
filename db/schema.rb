@@ -10,20 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_13_195553) do
-  create_table "habit_checks", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "habit_id", null: false
-    t.json "log"
-    t.index ["habit_id"], name: "index_habit_checks_on_habit_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2023_08_13_222005) do
   create_table "habits", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "habit_checks", "habits"
+  create_table "logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "habit_id", null: false
+    t.index ["habit_id"], name: "index_logs_on_habit_id"
+  end
+
+  add_foreign_key "logs", "habits"
 end
