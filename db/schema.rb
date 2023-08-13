@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_13_193507) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_13_195553) do
   create_table "habit_checks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "habit_id", null: false
+    t.json "log"
     t.index ["habit_id"], name: "index_habit_checks_on_habit_id"
   end
 
