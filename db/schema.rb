@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_13_222005) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_13_223026) do
   create_table "habits", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_222005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "habit_id", null: false
+    t.json "checks"
     t.index ["habit_id"], name: "index_logs_on_habit_id"
   end
 

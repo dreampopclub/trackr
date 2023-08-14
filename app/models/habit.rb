@@ -5,8 +5,4 @@ class Habit < ApplicationRecord
   after_create do |habit|
     Log.new(habit: habit).save!
   end
-
-  def log
-    JSON.parse(self.habit_check.log)
-  end
 end
