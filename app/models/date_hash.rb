@@ -1,20 +1,20 @@
 class DateHash
-  attr_reader :date
-  def initialize(date_hash ={}.to_json)
-    @date = JSON.parse(date_hash)
+  def date_hash
+    @date_hash ||= {}
   end
 
-  def add_date(date = Date.now)
-    if @date[date.year.to_s]
-      if @date[date.year.to_s][date.month.to_s]
-        if @date[date.year.to_s][date.month.to_s][date.day.to_s]
+  def add_date(date = Date.today)
+    if date_hash[date.year.to_s]
+      if date_hash[date.year.to_s][date.month.to_s]
+        if date_hash[date.year.to_s][date.month.to_s][date.day.to_s]
           raise StandardError, 'day already logged'
         end
-        @date[date.year.to_s][date.month.to_s][date.day.to_s] = true
-
+        date_hash[date.year.to_s][date.month.to_s][date.day.to_s] = true
       end
-      @date[date.year.to_s][date.month.to_s] = { date.day.to_s => true }
+    else
+      date_hash[date.year.to_s] = {}
+      date_hash[date.year.to_s][date.month.to_s] = { date.day.to_s => true }
     end
-    @date[date.year.to_s] = { date.month.to_s => { date.day.to_s => true }}
+    date_hash
   end
 end
