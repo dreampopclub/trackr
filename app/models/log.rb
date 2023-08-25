@@ -6,26 +6,9 @@ class Log < ApplicationRecord
   end
 
   def add_day(date = Time.now)
-
-    # self.checks = adder(date).to_json
-    # self.save!
+    dh = DateHash.new(JSON.parse(self.checks))
+    dh.add_date(date)
+    self.checks = dh.date_hash.to_json
+    self.save!
   end
-
-  # private def adder(date)
-  #   obj = JSON.parse(self.checks)
-  #   if obj[date.year.to_s]
-  #     if obj[date.year.to_s][date.month.to_s]
-  #       if obj[date.year.to_s][date.month.to_s][date.day.to_s]
-  #         raise StandardError, 'day already logged'
-  #       else
-  #         obj[date.year.to_s][date.month.to_s][date.day.to_s] => true
-  #       end
-  #     else
-  #       obj[date.year.to_s] = { date.month.to_s => { date.day.to_s => true }}
-  #     end
-  #   else
-  #     obj[date.year.to_s] = { date.month.to_s => { date.day.to_s => true }}
-  #   end
-  #   obj
-  # end
 end
