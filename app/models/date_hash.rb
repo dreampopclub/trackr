@@ -1,6 +1,9 @@
 class DateHash
-  def date_hash
-    @date_hash ||= {}
+  attr_reader :date_hash
+  def initialize(date_hash)
+    raise StandardError, 'date_hash must be a hash' unless date_hash.is_a?(Hash)
+
+    @date_hash = date_hash
   end
 
   def add_date(date = Date.today)

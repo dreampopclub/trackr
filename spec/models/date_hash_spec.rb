@@ -1,15 +1,18 @@
 describe DateHash do
   let(:today) { Date.today }
-  describe '#date' do
-    it 'inits an empty hash' do
-      dh = DateHash.new
-      expect(dh.date).to eq({})
+  describe '#initialzie' do
+    it 'sets date_hash' do
+      dh = DateHash.new({})
+      expect(dh.date_hash).to eq({})
+    end
+    it 'raises if not initialized with a hash' do
+      expect { DateHash.new('') }.to raise_error('date_hash must be a hash')
     end
   end
   describe '#add_date' do
     context 'when no date arg is passed' do
       it 'Adds today' do
-        dh = DateHash.new
+        dh = DateHash.new({})
         expect(dh.add_date).to eq({ '2023' => { '8' => { '25' => true }}})
       end
     end
@@ -24,7 +27,7 @@ describe DateHash do
             }
           }
         }
-        dh = DateHash.new
+        dh = DateHash.new({})
         dh.add_date
         expect(dh.add_date(yesterday)).to eq(expected)
       end
@@ -44,14 +47,14 @@ describe DateHash do
             }
           }
         }
-        dh = DateHash.new
+        dh = DateHash.new({})
         dh.add_date
         expect(dh.add_date(last_year)).to eq(expected)
       end
     end
     context 'when adding a day that already exists' do
       it 'raises an error' do
-        dh = DateHash.new
+        dh = DateHash.new({})
         dh.add_date
         expect { dh.add_date }.to raise_error('day already logged')
       end
