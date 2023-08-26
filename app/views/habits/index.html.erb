@@ -1,0 +1,6 @@
+<% @habits.each do |habit| %>
+  <div>
+    <%= habit.name %>
+    <%= habit.log.checks %>
+  </div>
+<% end %>
