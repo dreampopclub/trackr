@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <td></td>
+    <% @days.each do |day| %>
+      <td><%= day %></td>
+    <% end %>
+  </tr>
+    <% @habits.each do |habit| %>
+      <tr>
+        <td><%= habit.name %></td>
+        <% @days.each do |day| %>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+</table>

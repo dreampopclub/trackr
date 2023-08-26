@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :habits, only: [:index]
+
+  get 'this_month', to: 'calendar#this_month'
 end
